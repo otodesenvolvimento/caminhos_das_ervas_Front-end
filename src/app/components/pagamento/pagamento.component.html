@@ -1,0 +1,64 @@
+<div class="pagamento-container">
+  @if (!pagamentoRealizado) {
+    <h2>Finalizar Pedido</h2>
+
+    <div class="layout-pagamento">
+      <form class="checkout-form" [formGroup]="formularioPagamento">
+        <h3>Informações de Pagamento</h3>
+
+        <div class="metodos-selecao">
+          <label>
+            <input type="radio" name="metodo" value="pix" checked> PIX (5% de desconto)
+          </label>
+          <label>
+            <input type="radio" name="metodo" value="cartao"> Cartão de Crédito
+          </label>
+        </div>
+
+        <div class="campos">
+          <input type="text" formControlName="nome" placeholder="Nome Completo">
+          <input type="text" formControlName="cpf" placeholder="CPF (apenas números)">
+          <input type="text" formControlName="endereco" placeholder="Endereço de Entrega">
+        </div>
+
+        <button
+          type="button"
+          class="btn-confirmar"
+          [disabled]="formularioPagamento.invalid"
+          (click)="confirmarPagamento()">
+          Confirmar Pagamento
+        </button>
+
+        <!-- Usando a sintaxe @if para manter consistência com o restante do arquivo -->
+        @if (formularioPagamento.invalid && formularioPagamento.dirty) {
+          <p class="aviso-erro">
+            * Preencha todos os campos corretamente para continuar.
+          </p>
+        }
+      </form>
+
+      <div class="resumo-pedido">
+        <h3>Resumo do Pedido</h3>
+        @for (item of carrinhoService.getItens(); track item.produto.id) {
+          <div class="resumo-item">
+            <span>{{ item.quantidade }}x {{ item.produto.name }}</span>
+            <span>{{ (item.produto.price * item.quantidade) | currency:'BRL' }}</span>
+          </div>
+        }
+        <hr>  
+        <div class="total">
+          <strong>Total:</strong>
+          <strong>{{ carrinhoService.getPrecoTotal() | currency:'BRL' }}</strong>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <!-- MENSAGEM DE SUCESSO -->
+    <div class="sucesso-container">
+      <div class="check-icon">✓</div>
+      <h2>Pedido realizado com sucesso!</h2>
+      <p>Obrigada por comprar na Caminho das Ervas. Em breve você receberá os detalhes no seu e-mail.</p>
+      <button type="button" class="btn-confirmar" routerLink="/produtos">Voltar para a Loja</button>
+    </div>
+  }
+</div>

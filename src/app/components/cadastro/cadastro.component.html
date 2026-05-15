@@ -1,0 +1,40 @@
+<div class="overlay">
+  <div class="modal">
+    <button class="close-btn" (click)="irParaLogin($event)">✕</button>
+
+    <h2>Criar Conta</h2>
+
+    <form (ngSubmit)="registrarUsuario()">
+
+      <input
+        type="text"
+        [(ngModel)]="usuario.username"
+        name="username"
+        placeholder="Escolha um Usuário"
+        required
+      >
+
+      <input
+        type="password"
+        [(ngModel)]="usuario.password"
+        name="password"
+        placeholder="Crie uma Senha"
+        required
+      >
+
+      <input
+        type="password"
+        [(ngModel)]="usuario.confirmarSenha"
+        name="confirmarSenha"
+        placeholder="Confirme a Senha"
+        required
+      >
+
+      <button type="submit" class="btn-cadastrar">Finalizar Cadastro</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 10px;">
+      Já tem uma conta? <a href="#" (click)="irParaLogin($event)">Faça Login</a>
+    </p>
+  </div>
+</div>

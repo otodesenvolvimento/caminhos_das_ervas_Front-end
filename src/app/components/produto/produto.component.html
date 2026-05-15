@@ -1,0 +1,19 @@
+    <div class="card">
+        <div class="img-box">
+            <img [src]="'http://localhost:5000/' + produto.image_path" [alt]="produto.name">
+    <h3>{{ produto.name }}</h3>
+    <div class="price-tag">{{ produto.price | currency:'BRL' }}</div>
+                [alt]="produto.name"
+                onerror="this.src='http://localhost:5000/assets/products/default.png'">
+        </div>
+        <div class="info">
+            <h3>{{ produto.name }}</h3>
+            <div class="price-tag">{{ produto.price | currency:'BRL' }}</div>
+            <div class="payment-methods">PIX, Cartão de Crédito ou Débito</div>
+
+            <button class="btn-buy" (click)="adicionarAoCarrinho()">
+                Comprar Agora
+            </button>
+        </div>
+    </div>
+      

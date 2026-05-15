@@ -1,0 +1,71 @@
+<header class="main-header">
+  <div>
+        <img class="logo" src="../../../assets/logo1.png" alt="Logo">
+  </div>
+  <div class="content-header">
+    <div class="top-row">
+
+<div class="search-box">
+  <input
+    type="text"
+    placeholder="O que você está procurando?"
+    class="search-input"
+    (input)="pesquisar($event)"
+  >
+  <span class="search-icon">&#128269;</span>
+</div>
+
+   <div class="user-menu-wrapper" style="display: flex; flex-direction: column; align-items: flex-end;">
+  @if(!usuarioLogado){
+    <a class="user-menu" (click)="abrirLogin($event)">Login</a>
+  } @else {
+    <div class="user-menu">
+      👤 {{ usuarioLogado }}
+      <span class="material-icons logout-icon" (click)="logout()">logout</span>
+    </div>
+
+    @if (usuarioLogado === 'admin@email.com') {
+    <a (click)="adminService.abrir()" class="admin-link" style="cursor: pointer;">
+    Gestão ⚙️
+     </a>
+     }
+
+    <!-- @if (usuarioLogado === 'admin@email.com') {
+      <a routerLink="/admin/dashboard"
+         style="color: #c5a059; font-weight: bold; font-size: 14px; text-decoration: none; margin-top: 5px; cursor: pointer;">
+         Gestão ⚙️
+      </a>
+    } -->
+  }
+</div>
+    </div>
+    <nav>
+    <!-- <a routerLink="/">Início</a>
+    <a routerLink="/produtos">Loja</a> -->
+
+
+     <!-- @if (usuarioLogado === 'admin@email.com') {
+      <a routerLink="/admin/dashboard" style="color: var(--accent-gold);">Gestão ⚙️</a>
+    } -->
+    </nav>
+
+    <nav class="nav-bar">
+      <ul class="nav-list">
+        <li><a [ngClass]="{ 'active': paginaAtual=='paginaInicial' }" (click)="setPaginaAtual('paginaInicial')">Página principal</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='todos' }" (click)="setPaginaAtual('todos')">Todos os produtos</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='banho' }" (click)="setPaginaAtual('banho')">Banho e Cuidados</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='mao' }" (click)="setPaginaAtual('mao')">Cuidados com as Mão</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='fragrancia' }" (click)="setPaginaAtual('fragrancia')">Fragrância da Casa</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='cabelo' }" (click)="setPaginaAtual('cabelo')">Acessórios de Cabelo</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='pele' }" (click)="setPaginaAtual('pele')">Cuidados com a Pele</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='infantil' }" (click)="setPaginaAtual('infantil')">Acessórios Infantis</a></li>
+      </ul>
+    </nav>
+    <nav>
+
+
+
+</nav>
+  </div>
+
+</header>

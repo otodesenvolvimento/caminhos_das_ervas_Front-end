@@ -1,0 +1,20 @@
+<section class="hero">
+    <h1>Produtos artesanais sustentáveis</h1>
+    <p>Direto da nossa produção para o seu ritual de autocuidado. Usando ciência e bem estar para o seu dia a dia</p>
+</section>
+
+<section class="container">
+    <div class="product-grid">
+    @for (produto of produtosFiltrados; track produto) {
+        <div (click)="abrirDetalhes(produto)" style="cursor: pointer;">
+          <app-produto [produto]="produto"></app-produto>
+        </div>
+              }
+         </div>
+
+        @if (produtoSelecionado) {
+  <app-produto-detalhe
+    [produto]="produtoSelecionado"
+    (onClose)="fecharDetalhe()"> </app-produto-detalhe>
+}
+</section>

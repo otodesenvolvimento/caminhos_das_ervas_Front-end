@@ -1,0 +1,16 @@
+<header>
+  <h1>CAMINHO DAS ERVAS</h1>
+  <p>Essência e Bem-estar</p>
+</header>
+
+<app-navbar></app-navbar>
+
+<nav>
+  <a routerLink="/">Loja</a>
+  <a routerLink="/admin">Gerenciar Produtos</a>
+  <a routerLink="/login">Login</a>
+</nav>
+
+<div class="container">
+  <router-outlet (activate)="onRouteActivate($event)"></router-outlet>
+</div>

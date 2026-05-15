@@ -1,0 +1,117 @@
+/* Estilos para o Menu de Navegação Superior do Painel */
+.admin-nav {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+}
+/* Estilização da saudação do usuário */
+.user-greeting {
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+}
+.admin-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.admin-nav a {
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px;
+  padding-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Estilos da Grelha de Produtos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-items: center
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #f0e6d2;
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Imagens dos Produtos */
+.product-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: block;
+}
+
+/* Tipografia e Preços */
+.product-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--primary-green);
+}
+
+.price {
+  display: block;
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* Ações de Administração (Botões) */
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.btn-edit, .btn-delete {
+  flex: 1;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: opacity 0.3s;
+  color: var(--white);
+}
+
+.btn-edit {
+  background-color: var(--accent-gold);
+}
+
+.btn-delete {
+  background-color: #d9534f;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  opacity: 0.8;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}

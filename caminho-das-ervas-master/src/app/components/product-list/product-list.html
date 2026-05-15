@@ -1,0 +1,54 @@
+<div class="list-container" style="padding: 20px;">
+  <h2 style="color: #2d5a27; margin-bottom: 20px;">🌿 Catálogo Caminho das Ervas</h2>
+
+  <div class="search-bar" style="margin-bottom: 30px;">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="applyFilter()"
+      placeholder="🔍 Pesquisar por velas, sabonetes ou ervas..."
+      style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #217346; font-size: 16px; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+    >
+  </div>
+
+  <div class="product-grid" *ngIf="filteredProducts.length > 0; else empty">
+    <div *ngFor="let p of filteredProducts" class="product-card">
+      <img
+        [src]="'http://localhost:5000/' + p.image_path"
+        alt="Imagem de {{ p.name }}"
+        class="product-img"
+        onerror="this.src='http://localhost:5000/assets/products/default.png'"
+      >
+
+      <h4>{{ p.name }}</h4>
+      <p style="font-size: 0.9em; color: #666; height: 40px; overflow: hidden;">{{ p.description }}</p>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+        <span class="price" style="font-weight: bold; color: #217346;">
+          R$ {{ p.price | number:'1.2-2' }}
+        </span>
+        <span style="font-size: 0.8em; color: #999;">Qtd: {{ p.quantity }}</span>
+      </div>
+
+      <div class="admin-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+        <button (click)="editProduct(p)" class="btn-edit" style="flex: 1; padding: 8px; border-radius: 5px; cursor: pointer;">
+          Editar
+        </button>
+        <button (click)="deleteProduct(p.id!)" class="btn-delete" style="flex: 1; padding: 8px; border-radius: 5px; cursor: pointer;">
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div style="text-align: center; padding: 50px; color: #666;">
+      <p *ngIf="searchTerm; else noData">
+        Nenhum produto encontrado para "<strong>{{ searchTerm }}</strong>".
+      </p>
+      <ng-template #noData>
+        <p>A carregar produtos...</p>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>

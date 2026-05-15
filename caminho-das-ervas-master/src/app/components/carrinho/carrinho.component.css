@@ -1,0 +1,55 @@
+.carrinho {
+    width: 90px;
+    height: 90px;
+    background-color: #5b7f6a;
+    border-radius: 50%;
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.carrinho:hover {
+    transform: scale(1.05); 
+}
+
+.material-symbols-outlined {
+    font-size: 48px;
+    color: white; 
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #d14900; 
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.anima-pulse {
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+
+

@@ -1,0 +1,208 @@
+/* Overlay de fundo (Escurece a tela) */
+.carrinho-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Menu Lateral Branco */
+.carrinho-lateral {
+  width: 380px;
+  height: 100vh; /* Ocupa a altura total da tela */
+  background: white;
+  display: flex;
+  flex-direction: column; /* Organiza header, corpo e footer em coluna */
+  padding: 0; /* Tiramos o padding global para controlar melhor as seções */
+}
+
+/* Cabeçalho do Carrinho */
+.carrinho-header {
+  padding: 20px;
+  flex-shrink: 0; /* Impede o header de encolher */
+  border-bottom: 2px solid #f4f4f4;
+}
+
+.carrinho-header h3 {
+  margin: 0;
+  color: #2d3e33;
+  font-size: 1.4rem;
+}
+
+.carrinho-header button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+}
+
+/* Listagem de Itens com Scroll */
+.carrinho-itens {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.carrinho-corpo-scrollable {
+  flex-grow: 1; /* Faz esta parte ocupar todo o espaço central */
+  overflow-y: auto; /* Adiciona o scroll apenas aqui */
+  padding: 0 20px;
+}
+
+/* Linha de cada Produto */
+.item-linha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item-linha:hover {
+  transform: translateX(-5px);
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Box da Imagem do Produto */
+.item-img-box {
+  width: 65px;
+  height: 65px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+}
+
+.item-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Garante que a imagem apareça toda sem cortes */
+}
+
+/* Informações (Nome e Controles) */
+.item-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-nome {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+/* Controles de + e - */
+.quantidade-controles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantidade-controles button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #2d3e33;
+  transition: 0.2s;
+}
+
+.quantidade-controles button:hover {
+  background-color: #5b7f6a;
+  color: white;
+}
+
+.qtd-numero {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.preco-unitario {
+  color: #777;
+  font-size: 0.8rem;
+}
+
+/* Botão de Remover (X) */
+.btn-remover {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.btn-remover:hover {
+  color: #e74c3c;
+}
+
+/* Rodapé do Carrinho */
+.carrinho-footer {
+  padding: 20px;
+  flex-shrink: 0; /* Impede o rodapé de sumir ou encolher */
+  background: white;
+  border-top: 2px solid #f4f4f4;
+  margin-top: auto; /* Garante que ele encoste no fundo */
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.total-container span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2d3e33;
+}
+
+.btn-finalizar {
+  width: 100%;
+  padding: 16px;
+  background-color: #2d3e33;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  /* Margem para não colar na borda inferior do navegador */
+  margin-bottom: 10px;
+}
+
+.btn-finalizar:hover {
+  background-color: #1e2922;
+  box-shadow: 0 4px 12px rgba(45, 62, 51, 0.3);
+}
+
+.carrinho-vazio {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+  font-style: italic;
+}

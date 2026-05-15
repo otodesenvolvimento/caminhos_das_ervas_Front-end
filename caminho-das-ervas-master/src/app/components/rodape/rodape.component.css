@@ -1,0 +1,10 @@
+footer {
+      background: linear-gradient(135deg, #5b7f6a, #a3c9a8);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    footer p {
+      margin: 6px 0;
+    }
+  

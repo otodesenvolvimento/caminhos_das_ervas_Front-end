@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="img-box">
+        <img [src]="produto.imagem" [alt]="produto.nome">
+    </div>
+    <div class="info">
+        <h3>{{produto.nome}}</h3>
+        <div class="price-tag">{{ produto.preco | currency:'BRL' }}</div>
+        <div class="payment-methods">PIX, Cartão de Crédito ou Débito</div>
+        
+       
+        <button class="btn-buy" (click)="adicionarAoCarrinho()">
+            Comprar Agora
+        </button>
+    </div>
+</div>

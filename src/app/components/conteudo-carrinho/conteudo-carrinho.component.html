@@ -1,0 +1,50 @@
+<div class="carrinho-overlay" (click)="fecharCarrinho()">
+  <div class="carrinho-lateral" (click)="$event.stopPropagation()">
+    <div class="carrinho-header">
+      <h3>Meu Carrinho</h3>
+      <button (click)="fecharCarrinho()">X</button>
+    </div>
+
+    <div class="carrinho-itens">
+      @for (item of carrinhoService.getItens(); track item.produto.id; let i = $index) {
+        <div class="item-linha">
+
+          <div class="item-img-box">
+            <img
+              [src]="'http://localhost:5000/' + item.produto.image_path"
+              [alt]="item.produto.name"
+              onerror="this.src='http://localhost:5000/assets/products/default.png'">
+          </div>
+
+          <div class="item-info">
+            <span class="item-nome">{{ item.produto.name }}</span>
+
+            <div class="quantidade-controles">
+             @if (item.produto.id !== undefined) {
+  <button (click)="carrinhoService.decrementarQuantidade(item.produto.id)">-</button>
+  <span class="qtd-numero">{{ item.quantidade }}</span>
+  <button (click)="carrinhoService.incrementarQuantidade(item.produto.id)">+</button>
+}
+              <span class="preco-unitario">x {{ item.produto.price | currency:'BRL' }}</span>
+            </div>
+          </div>
+
+          <button class="btn-remover" (click)="carrinhoService.removerItem(i)">
+            &times;
+          </button>
+        </div>
+      }
+      @empty {
+        <p class="carrinho-vazio">Seu carrinho está vazio 🍃</p>
+      }
+    </div>
+
+    <div class="carrinho-footer">
+      <div class="total-container">
+        <span>Total:</span>
+        <span class="total-valor">{{ carrinhoService.getPrecoTotal() | currency:'BRL' }}</span>
+      </div>
+      <button class="btn-finalizar" (click)="irParaPagamento()">Finalizar Compra</button>
+    </div>
+  </div>
+</div>

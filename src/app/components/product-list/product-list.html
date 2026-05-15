@@ -1,0 +1,89 @@
+<nav class="admin-nav" style="margin-bottom: 20px; position: relative;">
+  <ul style="display: flex; list-style: none; gap: 30px; padding: 15px 0; margin: 0; border-bottom: 1px solid #eee; justify-content: center; align-items: center;">
+    <li>
+      <a (click)="setSessao('lista')"
+         [style.color]="sessaoAtiva === 'lista' ? '#c5a059' : '#4a6741'"
+         [style.border-bottom]="sessaoAtiva === 'lista' ? '2px solid #c5a059' : 'none'"
+         style="cursor: pointer; font-weight: bold; text-decoration: none; font-size: 16px; padding-bottom: 8px; display: block;">
+         Produtos
+      </a>
+    </li>
+    <li>
+      <a (click)="setSessao('cadastro')"
+         [style.color]="sessaoAtiva === 'cadastro' ? '#c5a059' : '#4a6741'"
+         [style.border-bottom]="sessaoAtiva === 'cadastro' ? '2px solid #c5a059' : 'none'"
+         style="cursor: pointer; font-weight: bold; text-decoration: none; font-size: 16px; padding-bottom: 8px; display: block;">
+         Gerenciador de Produtos
+      </a>
+    </li>
+    <li style="position: absolute; right: 20px;">
+      <a (click)="fazerLogoutAdmin()"
+         style="cursor: pointer; font-weight: bold; color: #d9534f; text-decoration: none; font-size: 14px;">
+         Sair
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="admin-content-area" style="text-align: center;">
+  @if (sessaoAtiva === 'lista') {
+    <h2 style="color: #2d5a27; margin-bottom: 5px; font-family: 'Playfair Display', serif;">🌿 Painel de Gestão</h2>
+
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px; font-family: 'Montserrat', sans-serif;">
+      Olá, <strong>{{ usuarioNome }}</strong> Admin 🛡️
+    </p>
+
+    <div class="search-bar" style="margin-bottom: 30px; max-width: 500px; margin: 0 auto;">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        placeholder="🔍 Pesquisar produtos..."
+        style="width: 100%; padding: 12px; border-radius: 20px; border: 1px solid #4a6741; outline: none;"
+      >
+    </div>
+
+    <div class="product-grid" *ngIf="filteredProducts.length > 0; else empty"
+         style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px;">
+
+      <div *ngFor="let p of filteredProducts" class="product-card"
+     style="background: white; border: 1px solid #eee; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;">
+
+        <img
+          [src]="'http://localhost:5000/' + p.image_path"
+          alt="Imagem de {{ p.name }}"
+          style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;"
+          onerror="this.src='http://localhost:5000/assets/products/default.png'"
+        >
+
+        <h4 style="color: #4a6741; margin: 10px 0;">{{ p.name }}</h4>
+        <p style="font-size: 0.85em; color: #666; height: 35px; overflow: hidden; margin-bottom: 10px;">{{ p.description }}</p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <span style="font-weight: bold; color: #c5a059;">R$ {{ p.price | number:'1.2-2' }}</span>
+          <span style="font-size: 0.8em; color: #999;">Qtd: {{ p.quantity }}</span>
+        </div>
+
+        <div class="admin-actions" style="display: flex; gap: 10px;">
+          <button (click)="editProduct(p)"
+                  style="flex: 1; padding: 8px; background: #c5a059; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+            Editar
+          </button>
+          <button (click)="deleteProduct(p.id!)"
+                  style="flex: 1; padding: 8px; background: #d9534f; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #empty>
+      <div style="text-align: center; padding: 40px; color: #888;">
+        <p>Nenhum produto encontrado para exibir.</p>
+      </div>
+    </ng-template>
+
+  } @else {
+    <app-product-form [productToEdit]="produtoParaEditar"></app-product-form>
+  }
+</div>

@@ -1,0 +1,18 @@
+
+
+<div class="navbar-container">
+  <div *ngIf="currentUser" class="user-info">
+    <span>Olá, <strong>{{ currentUser.username }}</strong></span>
+
+    <span *ngIf="currentUser.is_admin === 1" class="badge-admin">
+      Admin 🛡️
+    </span>
+    <span *ngIf="currentUser.is_admin !== 1" class="badge-user">
+      Cliente 🌿
+    </span>
+  </div>
+
+  <div *ngIf="!currentUser">
+    <a routerLink="/login">Entrar</a>
+  </div>
+</div>

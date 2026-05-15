@@ -1,0 +1,80 @@
+<div class="form-container">
+  <app-dashboard></app-dashboard>
+  <h3>{{ editing ? 'Editar Produto' : 'Cadastrar Novo Produto' }}</h3>
+
+  <div class="admin-wrapper" style="max-width: 900px; margin: 0 auto;">
+    <form (submit)="saveProduct()">
+      <div class="form-group">
+        <label>Nome do Produto:</label>
+        <input type="text" [(ngModel)]="newProduct.name" name="name" required placeholder="Ex: Alecrim Orgânico">
+      </div>
+
+      <div class="form-group">
+        <label>Descrição:</label>
+        <textarea [(ngModel)]="newProduct.description" name="description" placeholder="Detalhes do produto..."></textarea>
+      </div>
+
+<div class="form-group">
+  <label>Categoria:</label>
+  <select [(ngModel)]="newProduct.categoria"
+          name="categoria"
+          #catControl="ngModel"
+          required
+          class="full-width">
+    <option value="" disabled selected>Selecione uma categoria</option>
+    <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+  </select>
+  <div *ngIf="catControl.invalid && catControl.touched" style="color: red; font-size: 11px;">
+    * A categoria é obrigatória para o servidor aceitar.
+  </div>
+</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preço (R$):</label>
+          <input type="number" [(ngModel)]="newProduct.price" name="price" step="0.01" min="0.01" required>
+        </div>
+        <div class="form-group">
+          <label>Quantidade:</label>
+          <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" min="0" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Imagem do Produto:</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="full-width">
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="!newProduct.categoria">
+        {{ editing ? 'Atualizar Produto' : 'Cadastrar Produto' }}
+      </button>
+    </form>
+  </div>
+
+  <hr style="margin: 30px 0; border-top: 1px dashed #ccc;">
+
+  <div class="excel-section" style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+    <h4 style="margin-top: 0; color: #217346;">🚀 Importação Rápida (Excel)</h4>
+
+    <div class="form-group">
+      <label>Selecione a planilha <strong>produtos_loja.xlsx</strong>:</label>
+      <input type="file" (change)="onExcelSelected($event)" accept=".xlsx, .xls">
+    </div>
+
+    <div *ngIf="isUploadingExcel" style="margin-bottom: 10px;">
+      <div style="background: #e0e0e0; border-radius: 10px; height: 20px; width: 100%; position: relative; overflow: hidden;">
+        <div [style.width.%]="progress"
+             style="background: #217346; height: 100%; transition: width 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: bold;">
+          {{ progress }}%
+        </div>
+      </div>
+    </div>
+
+    <button type="button"
+            (click)="uploadExcel()"
+            [disabled]="!selectedExcelFile || isUploadingExcel"
+            style="width: 100%; padding: 12px; background-color: #217346; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+      {{ isUploadingExcel ? 'A processar planilha...' : 'Atualizar Banco de Dados' }}
+    </button>
+  </div>
+</div>

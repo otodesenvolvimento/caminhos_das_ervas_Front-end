@@ -1,0 +1,42 @@
+<header class="main-header">
+  <div>
+        <img class="logo" src="../../../assets/logo1.png" alt="Logo">
+  </div>
+  <div class="content-header">
+    <div class="top-row">
+      
+      <div class="search-box">
+        <input type="text" placeholder="O que você está procurando?" 
+        class="search-input">
+        <span class="search-icon">&#128269;</span>
+      </div>
+
+      <div>
+        @if(!usuarioLogado){
+          <a class="user-menu" (click)="abrirLogin($event)">Login</a>
+        }
+        @else{
+          <div class="user-menu">
+            👤 {{ usuarioLogado }}
+            <!-- <label (click)="logout()">Sair</label> -->
+            <span class="material-icons logout-icon" (click)="logout()">logout</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <nav class="nav-bar">
+      <ul class="nav-list">
+        <li><a [ngClass]="{ 'active': paginaAtual=='paginaInicial' }" (click)="setPaginaAtual('paginaInicial')">Página principal</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='todos' }" (click)="setPaginaAtual('todos')">Todos os produtos</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='banho' }" (click)="setPaginaAtual('banho')">Banho e Cuidados</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='mao' }" (click)="setPaginaAtual('mao')">Cuidados com as Mão</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='fragrancia' }" (click)="setPaginaAtual('fragrancia')">Fragrância da Casa</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='cabelo' }" (click)="setPaginaAtual('cabelo')">Acessórios de Cabelo</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='pele' }" (click)="setPaginaAtual('pele')">Cuidados com a Pele</a></li>
+        <li><a [ngClass]="{ 'active': paginaAtual=='infantil' }" (click)="setPaginaAtual('infantil')">Acessórios Infantis</a></li>
+      </ul>
+    </nav>
+  </div>
+
+</header>

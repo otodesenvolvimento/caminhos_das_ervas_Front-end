@@ -1,0 +1,28 @@
+<div class="modal-overlay" (click)="fechar()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="fechar()">✕</button>
+
+    <div class="detalhe-container">
+      <div class="img-box">
+        <img [src]="'http://localhost:5000/' + produto.image_path" [alt]="produto.name">
+      </div>
+
+      <div class="info-box">
+        <span class="categoria-tag">{{ produto.categoria }}</span>
+        <h2>{{ produto.name }}</h2>
+        <p class="descricao">{{ produto.description }}</p>
+
+        <div class="preco-destaque">{{ produto.price | currency:'BRL' }}</div>
+
+        <div class="entrega-info">
+          <span class="material-icons">local_shipping</span>
+          Envio para todo o Brasil
+        </div>
+
+        <button class="btn-comprar" (click)="adicionarAoCarrinho()">
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
