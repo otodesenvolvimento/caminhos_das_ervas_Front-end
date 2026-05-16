@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // Importa o HttpClient
 import { produtoModel } from '../models/produto.model';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ProdutoService {
   // URL base do seu servidor Flask (conforme definido no app.py)
-  private apiUrl = 'http://localhost:5000/products';
+  private apiUrl = 'https://caminhos-das-ervas-back-end.onrender.com';
 
   constructor(private http: HttpClient) { }
 
