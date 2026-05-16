@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   // Conexão direta com o Flask
-  private readonly API_URL = 'http://localhost:5000';
+  private readonly API_URL = 'https://caminhos-das-ervas-back-end.onrender.com';
 
   constructor(private http: HttpClient) {}
 
