@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 
@@ -7,7 +8,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private readonly API = 'http://localhost:5000';
+  //private readonly API = 'http://localhost:5000';
+   private readonly API = 'https://caminhos-das-ervas-back-end.onrender.com'
 
   // Inicializa o estado verificando se existe um usuário salvo no navegador
   private usuarioLogadoSubject = new BehaviorSubject<string | null>(this.getUsuarioInicial());
