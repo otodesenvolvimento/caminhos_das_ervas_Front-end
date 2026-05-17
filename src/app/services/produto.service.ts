@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Importa o HttpClient
+import { HttpClient } from '@angular/common/http'; 
 import { produtoModel } from '../models/produto.model';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment'; // <-- IMPORTAÇÃO DO AMBIENTE
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
-  // URL base do seu servidor Flask (conforme definido no app.py)
-  private apiUrl = 'https://caminhos-das-ervas-back-end.onrender.com';
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    // Validação inteligente da URL de produtos
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      this.apiUrl = 'http://localhost:5000/products';
+    } else {
+      this.apiUrl = `${environment.apiUrl}/products`;
+    }
+  }
 
-  // Retorna um Observable que o componente vai "escutar"
   getProdutos(): Observable<produtoModel[]> {
     return this.http.get<produtoModel[]>(this.apiUrl);
   }
