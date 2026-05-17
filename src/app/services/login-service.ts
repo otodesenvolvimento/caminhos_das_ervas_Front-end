@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-
+import { environment } from '../../environments/environment'; // <-- IMPORTAÇÃO DO AMBIENTE
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  //private readonly API = 'http://localhost:5000';
-   private readonly API = 'https://caminhos-das-ervas-back-end.onrender.com'
+  private API: string; // <-- Removido o 'readonly' e o texto fixo para permitir atribuição dinâmica
 
   // Inicializa o estado verificando se existe um usuário salvo no navegador
   private usuarioLogadoSubject = new BehaviorSubject<string | null>(this.getUsuarioInicial());
   public usuarioLogado$ = this.usuarioLogadoSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    // Validação inteligente: se rodar local usa localhost, senão usa a URL do Render
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      this.API = 'http://localhost:5000';
+    } else {
+      this.API = environment.apiUrl;
+    }
+  }
 
   // Função auxiliar para recuperar o nome do usuário do localStorage com segurança
   private getUsuarioInicial(): string | null {
@@ -23,7 +28,7 @@ export class LoginService {
     if (userInfo) {
       try {
         const user = JSON.parse(userInfo);
-        return user.username; // Retorna o nome guardado no JSON
+        return user.username; 
       } catch {
         return null;
       }
@@ -34,31 +39,24 @@ export class LoginService {
   logar(credentials: any): Observable<any> {
     return this.http.post(`${this.API}/login`, credentials, { withCredentials: true }).pipe(
       tap((res: any) => {
-        // Guarda o objeto completo como string no localStorage
         localStorage.setItem('user_info', JSON.stringify(res));
-        // Atualiza o componente de cabeçalho com o nome do usuário
         this.usuarioLogadoSubject.next(res.username);
       })
     );
   }
 
-cadastrar(usuario: any): Observable<any> {
-  // Criamos um novo objeto contendo APENAS o que o Schema do Flask espera
-  const dadosParaOBackend = {
-    username: usuario.username,
-    password: usuario.password
-  };
+  cadastrar(usuario: any): Observable<any> {
+    const dadosParaOBackend = {
+      username: usuario.username,
+      password: usuario.password
+    };
+    return this.http.post(`${this.API}/register`, dadosParaOBackend);
+  }
 
-  return this.http.post(`${this.API}/register`, dadosParaOBackend);
-}
   logout(): void {
-    // 1. Limpa os dados do navegador
     localStorage.removeItem('user_info');
-
-    // 2. Avisa os componentes que o usuário saiu (limpa o cabeçalho)
     this.usuarioLogadoSubject.next(null);
 
-    // 3. Informa ao Flask para encerrar a sessão
     this.http.post(`${this.API}/logout`, {}, { withCredentials: true }).subscribe({
       next: () => console.log('Sessão encerrada no servidor'),
       error: (err) => console.error('Erro ao encerrar sessão no servidor', err)
